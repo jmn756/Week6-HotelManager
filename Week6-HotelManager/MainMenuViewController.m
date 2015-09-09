@@ -138,20 +138,16 @@
   
   if (CGRectContainsPoint(_topRect, p)) {
     //transfer to Hotels VC
-    NSLog(@"I tapped Browse hotels");
     HotelsViewController *hotelVC = [[HotelsViewController alloc] init];
     [self.navigationController pushViewController:hotelVC animated:YES];
   } else {
     if (CGRectContainsPoint(_middleRect, p)) {
       //transfer to Book A Room VC
-      NSLog(@"I tapped Book A Room");
       BookRoomViewController *bookRoomVC = [[BookRoomViewController alloc] init];
       [self.navigationController pushViewController:bookRoomVC animated:YES];
-
     } else {
       if (CGRectContainsPoint(_bottomRect, p)) {
         //transfer to Reservation Lookup VC
-        NSLog(@"I tapped Reservation Lookup");
         ReservationLookupViewController *reserveLookupVC = [[ReservationLookupViewController alloc] init];
         [self.navigationController pushViewController:reserveLookupVC animated:YES];
       }

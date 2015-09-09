@@ -7,8 +7,13 @@
 //
 
 #import "HotelsViewController.h"
+#import "Hotel.h"
+#import "AppDelegate.h"
 
-@interface HotelsViewController ()
+@interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong,nonatomic) NSArray *hotels;
 
 @end
 
@@ -17,16 +22,42 @@
 
 - (void)loadView {
   UIView *rootView = [[UIView alloc] init];
-  rootView.backgroundColor = [UIColor purpleColor];
+  
+  UITableView *tableView = [[UITableView alloc] initWithFrame:rootView.frame style:UITableViewStylePlain];
+  self.tableView = tableView;
+  [tableView setTranslatesAutoresizingMaskIntoConstraints:false];
+  [rootView addSubview:tableView];
+
   self.view = rootView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
   self.navigationItem.title = @"Hotels";
-//  UINavigationItem *navItem = [[UINavigationItem alloc] init];
-//  navItem.title = @"Hotels";
-//    // Do any additional setup after loading the view.
+  
+   self.tableView.dataSource = self;
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HotelCell"];
+
+//  AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+//  
+//  //  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name MATCHES %@",@"Four Seasons"];
+//  
+//  fetchRequest.predicate  = [NSPredicate predicateWithFormat:@"stars < 3"];
+//  
+//  NSError *fetchError;
+//  self.hotels = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+//  
+//  if (fetchError) {
+//    NSLog(@"%@",fetchError.localizedDescription);
+//  }
+//  
+  [self.tableView reloadData];
+
+  
+  
+  
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,14 +65,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - UITableViewDataSource
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return self.hotels.count;
 }
-*/
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
+  
+  Hotel *hotel = self.hotels[indexPath.row];
+  cell.textLabel.text = hotel.name;
+  
+  return cell;
+}
+
 
 @end

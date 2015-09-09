@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "MainMenuViewController.h"
+#import "Hotel.h"
+#import "Room.h"
 
 
 @interface AppDelegate () 
@@ -20,6 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.
   
+  [self seedCoreDataIfNeeded];
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   MainMenuViewController *mainMenuViewController = [[MainMenuViewController alloc] init];
   mainMenuViewController.view.backgroundColor = [UIColor whiteColor];
@@ -30,6 +34,52 @@
   [self.window makeKeyAndVisible];
   
   return YES;
+}
+
+-(void)seedCoreDataIfNeeded {
+  
+  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+  NSError *fetchError;
+  NSInteger count = [self.managedObjectContext countForFetchRequest:fetchRequest error:&fetchError];
+  if (count == 0) {
+    //seed the database
+    
+    NSDictionary *hotels = [[NSDictionary alloc] init];
+    NSDictionary *rooms = [[NSDictionary alloc] init];
+    //Hotel *newHotel;
+    
+    NSString *jsonPath = [[NSBundle mainBundle] pathForResource:@"hotels" ofType:@"json"];
+    NSData *jsonData = [NSData dataWithContentsOfFile:jsonPath];
+    
+    NSError *jsonError;
+    NSDictionary *rootObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&jsonError];
+    if (jsonError) {
+          return;
+    }
+    hotels = rootObject[@"Hotels"];
+    
+    for (NSDictionary *hotel in hotels)
+    {
+      Hotel *newHotel = [NSEntityDescription insertNewObjectForEntityForName:@"Hotel" inManagedObjectContext:self.managedObjectContext];
+      newHotel.name = hotel[@"name"];
+      newHotel.location = hotel[@"location"];
+      newHotel.stars = hotel[@"stars"];
+      rooms = hotel[@"rooms"];
+      for (NSDictionary *room in rooms)
+      {
+        Room *newRoom = [NSEntityDescription insertNewObjectForEntityForName:@"Room" inManagedObjectContext:self.managedObjectContext];
+        newRoom.number = room[@"number"];
+        newRoom.beds = room[@"beds"];
+        newRoom.rate = room[@"rate"];
+      }
+    }
+    NSError *saveError;
+    BOOL result = [self.managedObjectContext save:&saveError];
+    if (!result) {
+      NSLog(@" %@",saveError.localizedDescription);
+    }
+    
+  }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

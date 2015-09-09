@@ -1,5 +1,5 @@
 //
-//  Room.h
+//  Guest.h
 //  Week6-HotelManager
 //
 //  Created by Joey Nessif on 9/8/15.
@@ -9,18 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Hotel, NSManagedObject;
+@class NSManagedObject;
 
-@interface Room : NSManagedObject
+@interface Guest : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * number;
-@property (nonatomic, retain) NSNumber * beds;
-@property (nonatomic, retain) NSNumber * rate;
-@property (nonatomic, retain) Hotel *hotel;
+@property (nonatomic, retain) NSString * firstname;
+@property (nonatomic, retain) NSString * lastname;
 @property (nonatomic, retain) NSSet *reservation;
 @end
 
-@interface Room (CoreDataGeneratedAccessors)
+@interface Guest (CoreDataGeneratedAccessors)
 
 - (void)addReservationObject:(NSManagedObject *)value;
 - (void)removeReservationObject:(NSManagedObject *)value;
