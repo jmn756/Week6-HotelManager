@@ -11,9 +11,10 @@
 #import "Hotel.h"
 
 
-@interface ConfirmReservationViewController ()
+@interface ConfirmReservationViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) UIButton *submitButton;
+@property (strong, nonatomic) UITextField *textField;
 
 @end
 
@@ -45,6 +46,8 @@
   //lastNameTextView creation
   CGRect bottom = CGRectMake(30, navBarHeight + 35, frame.size.width-60, 30);
   UITextField *lastNameTextField = [[UITextField alloc] initWithFrame:bottom];
+  self.textField = lastNameTextField;
+  self.textField.delegate = self;
   lastNameTextField.placeholder = @"Please enter Last Name here.";
   [lastNameTextField setTranslatesAutoresizingMaskIntoConstraints:false];
   lastNameTextField.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
@@ -123,8 +126,18 @@
 -(void)submitButtonClicked:(UIButton *)sender{
   NSLog(@"user pressed submit button");
   
+  //put a message on screen saying Reservation book was successful
+  
 }
 
+
+#pragma mark: -- UITextFieldDelegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  [self.textField resignFirstResponder];
+  return true;
+}
 
 
 @end

@@ -10,12 +10,15 @@
 
 @implementation FrameProperties
 
++ (CGRect)getScreenFrameSize
+{
+  CGRect frame = [UIScreen mainScreen].bounds;
+  
+  return frame;
+}
 
 
-//CGRect frame = [UIScreen mainScreen].bounds;
-
-
-//int thirdHeight = frame.size.height/3;
+//thirdHeight = frame.size.height/3;
 //int quarterWidth = frame.size.width/4;
 //int twoThirdsHeight = thirdHeight*2;
 

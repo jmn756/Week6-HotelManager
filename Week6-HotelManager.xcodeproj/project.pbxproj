@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B0105CE11BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0105CE01BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg */; };
 		B0105CE71BA358AE008E1FE8 /* ConfirmReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0105CE61BA358AE008E1FE8 /* ConfirmReservationViewController.m */; };
+		B0105CEB1BA382CD008E1FE8 /* Google-Search.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0105CEA1BA382CD008E1FE8 /* Google-Search.jpg */; };
 		B074D7691B9E28F5006EFB37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B074D7681B9E28F5006EFB37 /* main.m */; };
 		B074D76C1B9E28F5006EFB37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B074D76B1B9E28F5006EFB37 /* AppDelegate.m */; };
 		B074D76F1B9E28F5006EFB37 /* Week6_HotelManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B074D76D1B9E28F5006EFB37 /* Week6_HotelManager.xcdatamodeld */; };
@@ -49,7 +50,8 @@
 /* Begin PBXFileReference section */
 		B0105CE01BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Yangtze-Gold-2-Front-Desk.jpg"; sourceTree = "<group>"; };
 		B0105CE51BA358AE008E1FE8 /* ConfirmReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmReservationViewController.h; sourceTree = "<group>"; };
-		B0105CE61BA358AE008E1FE8 /* ConfirmReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmReservationViewController.m; sourceTree = "<group>"; };
+		B0105CE61BA358AE008E1FE8 /* ConfirmReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ConfirmReservationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		B0105CEA1BA382CD008E1FE8 /* Google-Search.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Google-Search.jpg"; sourceTree = "<group>"; };
 		B074D7631B9E28F5006EFB37 /* Week6-HotelManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Week6-HotelManager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074D7671B9E28F5006EFB37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B074D7681B9E28F5006EFB37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,7 +74,7 @@
 		B074D7B31B9E7590006EFB37 /* BookRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookRoomViewController.h; sourceTree = "<group>"; };
 		B074D7B41B9E7590006EFB37 /* BookRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookRoomViewController.m; sourceTree = "<group>"; };
 		B074D7BC1B9E75DD006EFB37 /* AvailabilityResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailabilityResultsViewController.h; sourceTree = "<group>"; };
-		B074D7BD1B9E75DD006EFB37 /* AvailabilityResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailabilityResultsViewController.m; sourceTree = "<group>"; };
+		B074D7BD1B9E75DD006EFB37 /* AvailabilityResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AvailabilityResultsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B074D7BF1B9E75F6006EFB37 /* ReservationLookupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationLookupViewController.h; sourceTree = "<group>"; };
 		B074D7C01B9E75F6006EFB37 /* ReservationLookupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationLookupViewController.m; sourceTree = "<group>"; };
 		B074D7C21B9E760C006EFB37 /* ReservationResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationResultsViewController.h; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 		B074D7661B9E28F5006EFB37 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0105CEA1BA382CD008E1FE8 /* Google-Search.jpg */,
 				B0B7ABE81BA1E6D000A60C91 /* HoldContraints.m */,
 				B0B7ABE31BA0D54200A60C91 /* hotelroom.jpg */,
 				B0B7ABE11BA0A34200A60C91 /* Hotel.jpg */,
@@ -314,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0105CEB1BA382CD008E1FE8 /* Google-Search.jpg in Resources */,
 				B0105CE11BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg in Resources */,
 				B0B7ABE21BA0A34200A60C91 /* Hotel.jpg in Resources */,
 				B09F74C51B9FE13000454A85 /* hotels.json in Resources */,

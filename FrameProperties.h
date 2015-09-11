@@ -10,6 +10,8 @@
 
 @interface FrameProperties : NSObject
 
++ (CGRect)getScreenFrameSize;
+
 @property (nonatomic) CGRect frame;
 @property (nonatomic) NSInteger thirdHeight;
 @property (nonatomic) NSInteger quarterWidth;
