@@ -79,7 +79,7 @@
   [rootView addSubview:bottomView];
   
   //Text on topView
-  UILabel *selectEndDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth,textStripHeight/4, 250, 30)];
+  UILabel *selectEndDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth -15,textStripHeight/4, 250, 30)];
   [selectEndDateLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   selectEndDateLabel.text = @"Select Departure Date";
   selectEndDateLabel.textColor = [UIColor blackColor];
@@ -114,7 +114,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Book A Room";
+    self.navigationItem.title = @"Date Selection";
 }
 
 -(void)datePickerValueChanged:(UIDatePicker *)sender {
@@ -134,8 +134,8 @@
   if (endSelected > startSelected) {
       //push available rooms vc for selected dates
     AvailabilityResultsViewController *availabilityResultsVC = [[AvailabilityResultsViewController alloc] init];
-    availabilityResultsVC.startdate = self.startDateSelected;
-    availabilityResultsVC.enddate = self.endDateSelected;
+    availabilityResultsVC.startdate = startSelected;
+    availabilityResultsVC.enddate = endSelected;
     [self.navigationController pushViewController:availabilityResultsVC animated:YES];
   } else {
     //present an alert telling user to select appropriate dates

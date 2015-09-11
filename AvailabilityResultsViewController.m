@@ -6,15 +6,20 @@
 //  Copyright (c) 2015 Joey Nessif. All rights reserved.
 //
 
+
 #import "AvailabilityResultsViewController.h"
-//#import "AppDelegate.h"
-//#import "CoreDataStack.h"
 #import "HotelService.h"
+#import "Room.h"
+#import "Hotel.h"
+#import "ConfirmReservationViewController.h"
 
 @interface AvailabilityResultsViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *rooms;
+@property (strong, nonatomic) NSMutableArray *section0rooms;
+@property (strong, nonatomic) NSArray *sortedArray;
+
 
 @end
 
@@ -24,16 +29,45 @@
   UIView *rootView = [[UIView alloc] init];
   
   CGRect frame = [UIScreen mainScreen].bounds;
+  int quarterWidth = frame.size.width/4;
   int thirdHeight = frame.size.height/3;
   int twoThirdsHeight = thirdHeight*2;
+  int navBarHeight = 65;
+  int textStripHeight = 50;
+  int startPic = navBarHeight + textStripHeight;
+  NSString *fontName = @"Copperplate";
   
-  CGRect iv = CGRectMake(0, 0, frame.size.width, thirdHeight);
+  //topText strip creation
+  CGRect top = CGRectMake(0, navBarHeight, frame.size.width, textStripHeight);
+  UIView *topView = [[UIView alloc] initWithFrame:top];
+  [topView setTranslatesAutoresizingMaskIntoConstraints:false];
+  topView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
+                                            green:169.0f/255.0f
+                                             blue:135.0f/255.0f
+                                            alpha:1.0f];
+  [rootView addSubview:topView];
+  
+  //Text on topView
+  UILabel *datesLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth - 30, textStripHeight/4, 250, 30)];
+  [datesLabel setTranslatesAutoresizingMaskIntoConstraints:false];
+  NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+  [formatter setDateFormat:@"MM-dd-yyyy"];
+  NSString *startDateString = [formatter stringFromDate:self.startdate];
+  datesLabel.text = startDateString;
+  datesLabel.text = [datesLabel.text stringByAppendingString:@" -- "];
+  NSString *endDateString = [formatter stringFromDate:self.enddate];
+  datesLabel.text = [datesLabel.text stringByAppendingString:endDateString];
+  datesLabel.textColor = [UIColor blackColor];
+  datesLabel.font = [UIFont fontWithName:fontName size:20];
+  [topView addSubview:datesLabel];
+  
+  CGRect iv = CGRectMake(0, startPic , frame.size.width, thirdHeight);
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
-  imageView.image = [UIImage imageNamed: @"hotelroom.jpg"];
+  imageView.image = [UIImage imageNamed: @"Yangtze-Gold-2-Front-Desk.jpg"];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
   [rootView addSubview:imageView];
   
-  CGRect tv = CGRectMake(0, frame.size.height/3, frame.size.width, twoThirdsHeight);
+  CGRect tv = CGRectMake(0, (frame.size.height/3) + 60, frame.size.width, twoThirdsHeight);
   UITableView *tableView = [[UITableView alloc] initWithFrame:tv style:UITableViewStylePlain];
   self.tableView = tableView;
   self.tableView.dataSource = self;
@@ -48,14 +82,15 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.navigationItem.title = @"Room Availability";
+  self.navigationItem.title = @"Available Rooms";
   
- // [self HotelService.fetchAvailableRoomsForStartDate:self.startdate endDate:self.enddate];
+  self.rooms = [HotelService fetchAvailableRoomsForStartDate:self.startdate endDate:self.enddate];
+  //sort result set
+  NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
+  self.sortedArray=[self.rooms sortedArrayUsingDescriptors:@[sort]];
   
-
   [self.tableView reloadData];
 
-  
 }
 
 #pragma mark - UITableViewDataSource
@@ -80,26 +115,36 @@
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
   }
   
-  //NSArray *array = [self.rooms allObjects];
- // NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"number" ascending:YES];
- // NSArray *sortedArray=[array sortedArrayUsingDescriptors:@[sort]];
+  Room *room = self.sortedArray[indexPath.row];
+  NSString *bedCount = [NSString stringWithFormat:@"%@", room.beds];
+  NSString *rateAmt = [NSString stringWithFormat:@"%@", room.rate];
+  NSString *hotelName = [NSString stringWithFormat:@"%@", room.hotel.name];
+  NSString *roomNumber = [NSString stringWithFormat:@"%@", room.number];
   
-  //Room *room = sortedArray[indexPath.row];
- // NSString *bedCount = [NSString stringWithFormat:@"%@", room.beds];
- // NSString *rateAmt = [NSString stringWithFormat:@"%@", room.rate];
-  
-  cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:15];
-  cell.textLabel.text = @"Room: ";
- // cell.textLabel.text = [NSString stringWithFormat:@"%@", room.number];
+  cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:12];
+  cell.textLabel.text = @"Hotel: ";
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:hotelName];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" -- Room: "];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:roomNumber];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" ("];
- // cell.textLabel.text = [cell.textLabel.text stringByAppendingString:bedCount];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:bedCount];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" beds, $"];
-//  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:rateAmt];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:rateAmt];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" per night)"];
   
   return cell;
 }
 
+#pragma mark - UITableViewDelegate
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  ConfirmReservationViewController *confirmVC = [[ConfirmReservationViewController alloc] init];
+  confirmVC.selectedRoom = self.sortedArray[indexPath.row];
+  confirmVC.startdate = self.startdate;
+  confirmVC.enddate = self.enddate;
+  [self.navigationController pushViewController:confirmVC animated:YES];
+  
+}
 
 @end

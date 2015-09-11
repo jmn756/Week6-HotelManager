@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 
 @interface HotelService : NSObject
 
-+(NSArray *)fetchAvailableRoomsForStartDate:(NSDate*)startDate endDate:(NSDate *)endDate;
-+(void)bookReservationForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
++ (NSArray *) fetchAvailableRoomsForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
++ (void) bookReservationForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
 @end

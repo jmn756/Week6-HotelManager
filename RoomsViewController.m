@@ -87,19 +87,26 @@
   Room *room = sortedArray[indexPath.row];
   NSString *bedCount = [NSString stringWithFormat:@"%@", room.beds];
   NSString *rateAmt = [NSString stringWithFormat:@"%@", room.rate];
+  NSString *roomNumber = [NSString stringWithFormat:@"%@", room.number];
   
   cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:15];
   cell.textLabel.text = @"Room: ";
-  cell.textLabel.text = [NSString stringWithFormat:@"%@", room.number];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:roomNumber];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" ("];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:bedCount];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" beds, $"];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:rateAmt];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" per night)"];
-  
+  cell.userInteractionEnabled = NO;
   return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 
 @end

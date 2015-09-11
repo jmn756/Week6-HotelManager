@@ -31,7 +31,7 @@
 
   CGRect iv = CGRectMake(0, 0, frame.size.width, thirdHeight);
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
-  imageView.image = [UIImage imageNamed: @"hotel.jpg"];
+  imageView.image = [UIImage imageNamed: @"Hotel.jpg"];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
   [rootView addSubview:imageView];
   
@@ -104,8 +104,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-  //NSString *cellText = cell.textLabel.text;
+  
   RoomsViewController *roomsVC = [[RoomsViewController alloc] init];
   roomsVC.hotel = self.hotels[indexPath.row];
   [self.navigationController pushViewController:roomsVC animated:YES];

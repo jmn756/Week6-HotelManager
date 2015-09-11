@@ -14,7 +14,7 @@
 
 @implementation HotelService
 
-+(NSArray *)fetchAvailableRoomsForStartDate:(NSDate*)startDate endDate:(NSDate *)endDate {
++ (NSArray *) fetchAvailableRoomsForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
   
   AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
   
@@ -45,7 +45,7 @@
   
 }
 
-+(void)bookReservationForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
++ (void) bookReservationForStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
   
   AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
   
