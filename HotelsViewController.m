@@ -9,6 +9,8 @@
 #import "HotelsViewController.h"
 #import "Hotel.h"
 #import "AppDelegate.h"
+#import "RoomsViewController.h"
+#import "CoreDataStack.h"
 
 @interface HotelsViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -23,10 +25,24 @@
 - (void)loadView {
   UIView *rootView = [[UIView alloc] init];
   
-  UITableView *tableView = [[UITableView alloc] initWithFrame:rootView.frame style:UITableViewStylePlain];
+  CGRect frame = [UIScreen mainScreen].bounds;
+  int thirdHeight = frame.size.height/3;
+  int twoThirdsHeight = thirdHeight*2;
+
+  CGRect iv = CGRectMake(0, 0, frame.size.width, thirdHeight);
+  UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
+  imageView.image = [UIImage imageNamed: @"hotel.jpg"];
+  [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
+  [rootView addSubview:imageView];
+  
+  CGRect tv = CGRectMake(0, frame.size.height/3, frame.size.width, twoThirdsHeight);
+  UITableView *tableView = [[UITableView alloc] initWithFrame:tv style:UITableViewStylePlain];
   self.tableView = tableView;
-  [tableView setTranslatesAutoresizingMaskIntoConstraints:false];
-  [rootView addSubview:tableView];
+  self.tableView.dataSource = self;
+  self.tableView.delegate = self;
+  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HotelCell"];
+  [self.tableView setTranslatesAutoresizingMaskIntoConstraints:false];
+  [rootView addSubview:self.tableView];
 
   self.view = rootView;
 }
@@ -35,49 +51,65 @@
     [super viewDidLoad];
   self.navigationItem.title = @"Hotels";
   
-   self.tableView.dataSource = self;
-  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"HotelCell"];
-
-//  AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-//  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
-//  
-//  //  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name MATCHES %@",@"Four Seasons"];
-//  
-//  fetchRequest.predicate  = [NSPredicate predicateWithFormat:@"stars < 3"];
-//  
-//  NSError *fetchError;
-//  self.hotels = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
-//  
-//  if (fetchError) {
-//    NSLog(@"%@",fetchError.localizedDescription);
-//  }
-//  
+  AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+  NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Hotel"];
+  
+  NSError *fetchError;
+  self.hotels = [appDelegate.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+  
+  if (fetchError) {
+    NSLog(@"%@",fetchError.localizedDescription);
+  }
+  
   [self.tableView reloadData];
-
   
-  
-  
-  
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - UITableViewDataSource
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+  return 1;
+}
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return self.hotels.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
+  
+  static NSString *cellID = @"HotelCell";
+  
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+  
+  if (cell == nil)
+  {
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+  }
   
   Hotel *hotel = self.hotels[indexPath.row];
+  NSString *starCount = [NSString stringWithFormat:@"%@", hotel.stars];
+
+  cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:15];
   cell.textLabel.text = hotel.name;
-  
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" - "];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:hotel.location];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" ("];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:starCount];
+  cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@"-star hotel)"];
   return cell;
+}
+
+#pragma mark - UITableViewDelegate
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+  //NSString *cellText = cell.textLabel.text;
+  RoomsViewController *roomsVC = [[RoomsViewController alloc] init];
+  roomsVC.hotel = self.hotels[indexPath.row];
+  [self.navigationController pushViewController:roomsVC animated:YES];
+
 }
 
 

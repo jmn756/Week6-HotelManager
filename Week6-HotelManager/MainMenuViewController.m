@@ -30,6 +30,7 @@
   int thirdHeight = frame.size.height/3;
   int quarterWidth = frame.size.width/4;
   int twoThirdsHeight = thirdHeight*2;
+  NSString *fontName = @"Copperplate";
   
   //topView creation
   CGRect top = CGRectMake(0, 0, frame.size.width, thirdHeight);
@@ -47,7 +48,7 @@
   [browseHotelLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   browseHotelLabel.text = @"Browse Hotels";
   browseHotelLabel.textColor = [UIColor blackColor];
-  browseHotelLabel.font = [UIFont fontWithName:@"Snell Roundhand" size:24];
+  browseHotelLabel.font = [UIFont fontWithName:fontName size:24];
   [topView addSubview:browseHotelLabel];
   
   //middleWhiteView creation
@@ -59,11 +60,11 @@
   [rootView addSubview:midView];
 
   //Text on middleWhiteView
-  UILabel *bookARoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth, 75, 200, 30)];
+  UILabel *bookARoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth + 10, 75, 200, 30)];
   [bookARoomLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   bookARoomLabel.text = @"Book A Room";
   bookARoomLabel.textColor = [UIColor blackColor];
-  bookARoomLabel.font = [UIFont fontWithName:@"Snell Roundhand" size:24];
+  bookARoomLabel.font = [UIFont fontWithName:fontName size:24];
   [midView addSubview:bookARoomLabel];
   
   //bottomView creation
@@ -78,33 +79,12 @@
   [rootView addSubview:bottomView];
   
   //Text on bottomView
-  UILabel *lookupReservationLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth, 75, 200, 30)];
+  UILabel *lookupReservationLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth - 20, 75, 250, 30)];
   [lookupReservationLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   lookupReservationLabel.text = @"Lookup Reservation";
   lookupReservationLabel.textColor = [UIColor blackColor];
-  lookupReservationLabel.font = [UIFont fontWithName:@"Snell Roundhand" size:24];
+  lookupReservationLabel.font = [UIFont fontWithName:fontName size:24];
   [bottomView addSubview:lookupReservationLabel];
-
-  //NSDictionary *views = @{@"topView": topView, @"browseHotelLabel": browseHotelLabel, @"bookARoomLabel": bookARoomLabel, @"bottomView": bottomView, @"lookupReservationLabel": lookupReservationLabel};
-  
-  //topView constraints
-//  NSArray *topViewHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[topView]-|" options:0 metrics:nil views:views];
-//  [rootView addConstraints:topViewHorizontalConstraints];
-//  
-//  NSArray *topViewVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[topView]" options:0 metrics:nil views:views];
-//  [rootView addConstraints:topViewVerticalConstraints];
-//  
-  
-//   //browseHotelLabel constraints
-//  NSArray *browseHotelLabelVerticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-100-[browseHotelLabel]" options:0 metrics:nil views:views];
-//  [topView addConstraints:browseHotelLabelVerticalConstraints];
-//  
-  //  NSArray *greenLabelHorizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[greenLabel]" options:0 metrics:nil views:views];
-  //  [rootView addConstraints:greenLabelHorizontalConstraints];
-//  NSLayoutConstraint *browseHotelLabelCenterXConstraint = [NSLayoutConstraint constraintWithItem:browseHotelLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:rootView attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0];
-//  [topView addConstraint:browseHotelLabelCenterXConstraint];
-//  browseHotelLabelCenterXConstraint.active = true;
-//
   
   self.view = rootView;
   

@@ -10,4 +10,7 @@
 
 @interface AvailabilityResultsViewController : UIViewController
 
+@property (strong, nonatomic) NSDate *startdate;
+@property (strong, nonatomic) NSDate *enddate;
+
 @end

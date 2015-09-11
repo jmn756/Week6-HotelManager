@@ -10,4 +10,6 @@
 
 @interface BookRoomViewController : UIViewController
 
+- (void)presentDateSelectionAlert;
+
 @end
