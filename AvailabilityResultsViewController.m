@@ -28,27 +28,39 @@
 - (void)loadView {
   UIView *rootView = [[UIView alloc] init];
   
+  //variables
+  UIColor *customGreen = [UIColor colorWithRed:77.0f/255.0f
+                                         green:169.0f/255.0f
+                                          blue:135.0f/255.0f
+                                         alpha:1.0f];
+  
   CGRect frame = [UIScreen mainScreen].bounds;
-  int quarterWidth = frame.size.width/4;
-  int thirdHeight = frame.size.height/3;
-  int twoThirdsHeight = thirdHeight*2;
+  int screenWidth = frame.size.width;
+  int screenHeight = frame.size.height;
+  int viewHeight = screenHeight/3;
+  int twiceViewHeight = viewHeight*2;
+  int quarterWidth = screenWidth/4;
+  int labelHeight = 30;
+  int longLabelWidth = 250;
   int navBarHeight = 65;
   int textStripHeight = 50;
-  int startPic = navBarHeight + textStripHeight;
+  int quarterStripHeight = textStripHeight/4;
+  int adjustedX30 = quarterWidth - 30;
   NSString *fontName = @"Copperplate";
+  int fontSize = 20;
+  int startPic = navBarHeight + textStripHeight;
+  int startTV = startPic + viewHeight;
   
   //topText strip creation
-  CGRect top = CGRectMake(0, navBarHeight, frame.size.width, textStripHeight);
+  CGRect top = CGRectMake(0, navBarHeight, screenWidth, textStripHeight);
   UIView *topView = [[UIView alloc] initWithFrame:top];
   [topView setTranslatesAutoresizingMaskIntoConstraints:false];
-  topView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                            green:169.0f/255.0f
-                                             blue:135.0f/255.0f
-                                            alpha:1.0f];
+  topView.backgroundColor = customGreen;
   [rootView addSubview:topView];
   
   //Text on topView
-  UILabel *datesLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth - 30, textStripHeight/4, 250, 30)];
+  CGRect dLabel = CGRectMake(adjustedX30, quarterStripHeight, longLabelWidth, labelHeight);
+  UILabel *datesLabel = [[UILabel alloc] initWithFrame:dLabel];
   [datesLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
   [formatter setDateFormat:@"MM-dd-yyyy"];
@@ -58,16 +70,16 @@
   NSString *endDateString = [formatter stringFromDate:self.enddate];
   datesLabel.text = [datesLabel.text stringByAppendingString:endDateString];
   datesLabel.textColor = [UIColor blackColor];
-  datesLabel.font = [UIFont fontWithName:fontName size:20];
+  datesLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [topView addSubview:datesLabel];
   
-  CGRect iv = CGRectMake(0, startPic , frame.size.width, thirdHeight);
+  CGRect iv = CGRectMake(0, startPic , screenWidth, viewHeight);
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
   imageView.image = [UIImage imageNamed: @"Yangtze-Gold-2-Front-Desk.jpg"];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
   [rootView addSubview:imageView];
   
-  CGRect tv = CGRectMake(0, (frame.size.height/3) + 60, frame.size.width, twoThirdsHeight);
+  CGRect tv = CGRectMake(0, startTV, screenWidth, twiceViewHeight);
   UITableView *tableView = [[UITableView alloc] initWithFrame:tv style:UITableViewStylePlain];
   self.tableView = tableView;
   self.tableView.dataSource = self;
@@ -107,6 +119,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
   static NSString *cellID = @"RoomCell";
+  static NSString *fontName = @"Copperplate";
+  static int fontSize = 12;
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
   
@@ -121,7 +135,7 @@
   NSString *hotelName = [NSString stringWithFormat:@"%@", room.hotel.name];
   NSString *roomNumber = [NSString stringWithFormat:@"%@", room.number];
   
-  cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:12];
+  cell.textLabel.font = [UIFont fontWithName:fontName size:fontSize];
   cell.textLabel.text = @"Hotel: ";
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:hotelName];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" -- Room: "];

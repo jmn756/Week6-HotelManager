@@ -8,11 +8,15 @@
 
 #import "ReservationLookupViewController.h"
 #import "ReservationResultsViewController.h"
+#import "HotelService.h"
+#import "Reservation.h"
+
 
 @interface ReservationLookupViewController () <UITextFieldDelegate>
 
 @property (strong, nonatomic) UIButton *searchButton;
 @property (strong, nonatomic) UITextField *textField;
+@property (strong, nonatomic) NSArray *reservations;
 
 @end
 
@@ -22,60 +26,67 @@
   UIView *rootView = [[UIView alloc] init];
   rootView.backgroundColor = [UIColor blackColor];
   
+  //variables
+  UIColor *customGreen = [UIColor colorWithRed:77.0f/255.0f
+                                         green:169.0f/255.0f
+                                          blue:135.0f/255.0f
+                                         alpha:1.0f];
+  
   CGRect frame = [UIScreen mainScreen].bounds;
-  int quarterWidth = frame.size.width/4;
-  int thirdHeight = frame.size.height/3;
-  int twoThirdsHeight = thirdHeight*2;
-  int navBarHeight = 65;
-  int textStripHeight = 50;
-  int startPic = navBarHeight + 80;
+  int screenWidth = frame.size.width;
+  int screenHeight = frame.size.height;
+  int viewHeight = screenHeight/3;
+  int quarterWidth = screenWidth/4;
+  int labelHeight = 30;
+  int stdWidth = 100;
+  int longLabelValue = 350;
+  int adjustedX10 = 10;
+  int adjustedX30 = 30;
+  int adjustedWidth = screenWidth-60;
+  int adjustedX50 = quarterWidth + 50;
+  int fontSize = 13;
   NSString *fontName = @"Copperplate";
+  int navBarHeight = 65;
+  int buttonY = frame.size.height - 75;
+  int startPic = navBarHeight + 80;
+  int startTestField = navBarHeight + 30;
   
   //lastNameTextView creation
-  CGRect bottom = CGRectMake(30, navBarHeight + 30, frame.size.width-60, 30);
-  UITextField *lastNameTextField = [[UITextField alloc] initWithFrame:bottom];
+  CGRect lnText = CGRectMake(adjustedX30, startTestField, adjustedWidth, labelHeight);
+  UITextField *lastNameTextField = [[UITextField alloc] initWithFrame:lnText];
   self.textField = lastNameTextField;
   self.textField.delegate = self;
   lastNameTextField.placeholder = @"Please enter Last Name here.";
   [lastNameTextField setTranslatesAutoresizingMaskIntoConstraints:false];
-  lastNameTextField.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                                      green:169.0f/255.0f
-                                                       blue:135.0f/255.0f
-                                                      alpha:1.0f];
+  lastNameTextField.backgroundColor = customGreen;
   [rootView addSubview:lastNameTextField];
   
-  CGRect iv = CGRectMake(0, startPic , frame.size.width, thirdHeight);
+  CGRect iv = CGRectMake(0, startPic, screenWidth, viewHeight);
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
   imageView.image = [UIImage imageNamed: @"Google-Search.jpg"];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
   [rootView addSubview:imageView];
   
-  
   //Text on confirm reservation page
-  UILabel *lastNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, startPic + 100, 350, 350)];
+  CGRect lnLabel = CGRectMake(adjustedX10, startPic + 100, longLabelValue, longLabelValue);
+  UILabel *lastNameLabel = [[UILabel alloc] initWithFrame:lnLabel];
   lastNameLabel.lineBreakMode = NSLineBreakByWordWrapping;
   lastNameLabel.numberOfLines = 0;
-  
   [lastNameLabel setTranslatesAutoresizingMaskIntoConstraints:false];
   lastNameLabel.textAlignment = NSTextAlignmentCenter;
   lastNameLabel.text = @"Please enter the last name of the reservation, then click the Search button below.\n ";
   lastNameLabel.text = [lastNameLabel.text stringByAppendingString:@"Leave text-field blank to retrieve all reservations.\n"];
-
   lastNameLabel.text = [lastNameLabel.text stringByAppendingString:@"Note: Name fields are case-sensitive. "];
-  
   lastNameLabel.textColor = [UIColor whiteColor];
-  lastNameLabel.font = [UIFont fontWithName:fontName size:13];
+  lastNameLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [rootView addSubview:lastNameLabel];
   
   //Continue button setup
-  CGRect button = CGRectMake(quarterWidth + 50, frame.size.height - 75, 100, 25);
-  UIButton *searchButton = [[UIButton alloc] initWithFrame:(button)];
+  CGRect button = CGRectMake(adjustedX50, buttonY, stdWidth, labelHeight);
+  UIButton *searchButton = [[UIButton alloc] initWithFrame:button];
   self.searchButton = searchButton;
   [self.searchButton setTitle:@"Search" forState: UIControlStateNormal];
-  self.searchButton.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                                      green:169.0f/255.0f
-                                                       blue:135.0f/255.0f
-                                                      alpha:1.0f];
+  self.searchButton.backgroundColor = customGreen;
   [self.searchButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
   [self.searchButton addTarget:self action:@selector(searchButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
   [rootView addSubview:self.searchButton];
@@ -95,10 +106,10 @@
 }
 
 -(void)searchButtonClicked:(UIButton *)sender{
-  NSLog(@"user pressed search button");
   
+  self.reservations = [HotelService fetchReservationsForLastName:self.textField.text];
   ReservationResultsViewController *reserveResultsVC = [[ReservationResultsViewController alloc] init];
-  //reserveResultsVC.results = self.results;
+  reserveResultsVC.reservations = self.reservations;
   [self.navigationController pushViewController:reserveResultsVC animated:YES];
   
 }

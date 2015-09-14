@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Hotel, NSManagedObject;
+@class Hotel, Reservation;
 
 @interface Room : NSManagedObject
 

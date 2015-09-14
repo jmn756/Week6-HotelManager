@@ -25,17 +25,22 @@
 - (void)loadView {
   UIView *rootView = [[UIView alloc] init];
   
+  //variables
   CGRect frame = [UIScreen mainScreen].bounds;
-  int thirdHeight = frame.size.height/3;
-  int twoThirdsHeight = thirdHeight*2;
-
-  CGRect iv = CGRectMake(0, 0, frame.size.width, thirdHeight);
+  int screenWidth = frame.size.width;
+  int screenHeight = frame.size.height;
+  int viewHeight = screenHeight/3;
+  int twiceViewHeight = viewHeight*2;
+  
+  //imageView creation
+  CGRect iv = CGRectMake(0, 0, screenWidth, viewHeight);
   UIImageView *imageView = [[UIImageView alloc] initWithFrame:iv];
   imageView.image = [UIImage imageNamed: @"Hotel.jpg"];
   [imageView setTranslatesAutoresizingMaskIntoConstraints:false];
   [rootView addSubview:imageView];
   
-  CGRect tv = CGRectMake(0, frame.size.height/3, frame.size.width, twoThirdsHeight);
+  //tableView creation
+  CGRect tv = CGRectMake(0, viewHeight, screenWidth, twiceViewHeight);
   UITableView *tableView = [[UITableView alloc] initWithFrame:tv style:UITableViewStylePlain];
   self.tableView = tableView;
   self.tableView.dataSource = self;
@@ -79,6 +84,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
   static NSString *cellID = @"HotelCell";
+  static NSString *fontName = @"Copperplate";
+  static int fontSize = 15;
   
   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
   
@@ -90,7 +97,7 @@
   Hotel *hotel = self.hotels[indexPath.row];
   NSString *starCount = [NSString stringWithFormat:@"%@", hotel.stars];
 
-  cell.textLabel.font = [UIFont fontWithName:@"Copperplate" size:15];
+  cell.textLabel.font = [UIFont fontWithName:fontName size:fontSize];
   cell.textLabel.text = hotel.name;
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:@" - "];
   cell.textLabel.text = [cell.textLabel.text stringByAppendingString:hotel.location];

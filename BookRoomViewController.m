@@ -24,40 +24,59 @@
 
 - (void)loadView {
   UIView *rootView = [[UIView alloc] init];
-  rootView.backgroundColor = [UIColor colorWithRed:156.0f/255.0f
-                                            green:204.0f/255.0f
-                                             blue:204.0f/255.0f
-                                            alpha:1.0f];
-
+  
+  //variables
+  UIColor *customGreen = [UIColor colorWithRed:77.0f/255.0f
+                                         green:169.0f/255.0f
+                                          blue:135.0f/255.0f
+                                         alpha:1.0f];
+  
+  UIColor *customPickerGreen = [UIColor colorWithRed:156.0f/255.0f
+                                               green:204.0f/255.0f
+                                                blue:204.0f/255.0f
+                                               alpha:1.0f];
   CGRect frame = [UIScreen mainScreen].bounds;
-  int halfHeight = frame.size.height/2;
-  int quarterWidth = frame.size.width/4;
-  int quarterHeight = frame.size.height/4;
+  int screenWidth = frame.size.width;
+  int screenHeight = frame.size.height;
+  int halfHeight = screenHeight/2;
+  int quarterHeight = screenHeight/4;
+  int quarterWidth = screenWidth/4;
+  int labelHeight = 30;
+  int stdWidth = 100;
+  int longLabelWidth = 250;
+  int adjustedX15 = quarterWidth - 15;
+  int adjustedX50 = quarterWidth + 50;
   int navBarHeight = 65;
   int textStripHeight = 50;
   int startPickerY = navBarHeight + textStripHeight;
+  int endPickerY = halfHeight + textStripHeight + 1;
+  int buttonY = frame.size.height - 75;
+  int quarterStripHeight = textStripHeight/4;
+  int fontSize = 20;
   NSString *fontName = @"Copperplate";
-  
+  NSString *selectArrivalDate = @"Select Arrival Date";
+  NSString *selectDepartureDate = @"Select Departure Date";
+
+  rootView.backgroundColor = customPickerGreen;
+
   //topText strip creation
-  CGRect top = CGRectMake(0, navBarHeight, frame.size.width, textStripHeight);
+  CGRect top = CGRectMake(0, navBarHeight, screenWidth, textStripHeight);
   UIView *topView = [[UIView alloc] initWithFrame:top];
   [topView setTranslatesAutoresizingMaskIntoConstraints:false];
-  topView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                            green:169.0f/255.0f
-                                             blue:135.0f/255.0f
-                                            alpha:1.0f];
+  topView.backgroundColor = customGreen;
   [rootView addSubview:topView];
   
   //Text on topView
-  UILabel *selectStartDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth, textStripHeight/4, 250, 30)];
+  CGRect sSDLabel = CGRectMake(quarterWidth, quarterStripHeight, longLabelWidth, labelHeight);
+  UILabel *selectStartDateLabel = [[UILabel alloc] initWithFrame:sSDLabel];
   [selectStartDateLabel setTranslatesAutoresizingMaskIntoConstraints:false];
-  selectStartDateLabel.text = @"Select Arrival Date";
+  selectStartDateLabel.text = selectArrivalDate;
   selectStartDateLabel.textColor = [UIColor blackColor];
-  selectStartDateLabel.font = [UIFont fontWithName:fontName size:20];
+  selectStartDateLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [topView addSubview:selectStartDateLabel];
 
   //set up date picker
-  CGRect brStart = CGRectMake(0, startPickerY, frame.size.width, quarterHeight);
+  CGRect brStart = CGRectMake(0, startPickerY, screenWidth, quarterHeight);
   UIDatePicker *datePickerStart = [[UIDatePicker alloc] initWithFrame:(brStart)];
   self.datePickerStart = datePickerStart;
   self.datePickerStart.datePickerMode = UIDatePickerModeDate;
@@ -68,26 +87,24 @@
   [rootView addSubview:self.datePickerStart];
   
   //bottomText strip creation
-  CGRect bottom = CGRectMake(0, halfHeight, frame.size.width, textStripHeight);
+  CGRect bottom = CGRectMake(0, halfHeight, screenWidth, textStripHeight);
   UIView *bottomView = [[UIView alloc] initWithFrame:bottom];
   [bottomView setTranslatesAutoresizingMaskIntoConstraints:false];
-  bottomView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                            green:169.0f/255.0f
-                                             blue:135.0f/255.0f
-                                            alpha:1.0f];
+  bottomView.backgroundColor = customGreen;
   
   [rootView addSubview:bottomView];
   
   //Text on topView
-  UILabel *selectEndDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth -15,textStripHeight/4, 250, 30)];
+  CGRect sEDLabel = CGRectMake(adjustedX15, quarterStripHeight, longLabelWidth, labelHeight);
+  UILabel *selectEndDateLabel = [[UILabel alloc] initWithFrame:sEDLabel];
   [selectEndDateLabel setTranslatesAutoresizingMaskIntoConstraints:false];
-  selectEndDateLabel.text = @"Select Departure Date";
+  selectEndDateLabel.text = selectDepartureDate;
   selectEndDateLabel.textColor = [UIColor blackColor];
-  selectEndDateLabel.font = [UIFont fontWithName:fontName size:20];
+  selectEndDateLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [bottomView addSubview:selectEndDateLabel];
   
   //set up date picker
-  CGRect brEnd = CGRectMake(0, frame.size.height/2 + textStripHeight +1, frame.size.width, quarterHeight);
+  CGRect brEnd = CGRectMake(0, endPickerY, screenWidth, quarterHeight);
   UIDatePicker *datePickerEnd = [[UIDatePicker alloc] initWithFrame:(brEnd)];
   self.datePickerEnd = datePickerEnd;
   self.datePickerEnd.datePickerMode = UIDatePickerModeDate;
@@ -97,14 +114,11 @@
   [rootView addSubview:self.datePickerEnd];
   
   //Continue button setup
-  CGRect button = CGRectMake(quarterWidth + 50, frame.size.height - 75, 100, 25);
+  CGRect button = CGRectMake(adjustedX50, buttonY, stdWidth, labelHeight);
   UIButton *continueButton = [[UIButton alloc] initWithFrame:(button)];
   self.continueButton = continueButton;
   [self.continueButton setTitle:@"Continue" forState: UIControlStateNormal];
-  self.continueButton.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                                        green:169.0f/255.0f
-                                                         blue:135.0f/255.0f
-                                                        alpha:1.0f];
+  self.continueButton.backgroundColor = customGreen;
   [self.continueButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
   [self.continueButton addTarget:self action:@selector(continueButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
   [rootView addSubview:self.continueButton];

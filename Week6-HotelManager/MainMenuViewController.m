@@ -26,33 +26,50 @@
   UIView *rootView = [[UIView alloc] init];
   [self setupTapRecognizer:rootView];
   
+  //variables
+  UIColor *customGreen = [UIColor colorWithRed:77.0f/255.0f
+                                        green:169.0f/255.0f
+                                         blue:135.0f/255.0f
+                                        alpha:1.0f];
+
   CGRect frame = [UIScreen mainScreen].bounds;
-  int thirdHeight = frame.size.height/3;
-  int quarterWidth = frame.size.width/4;
-  int twoThirdsHeight = thirdHeight*2;
+  int screenWidth = frame.size.width;
+  int screenHeight = frame.size.height;
+  int viewHeight = screenHeight/3;
+  int halfViewHeight = viewHeight/2;
+  int quarterWidth = screenWidth/4;
+  int twiceViewHeight = viewHeight*2;
+  int labelHeight = 30;
+  int stdLabelWidth = 200;
+  int longLabelWidth = 250;
+  int adjustedX10 = quarterWidth + 10;
+  int adjustedX20 = quarterWidth - 20;
+  int fontSize = 24;
   NSString *fontName = @"Copperplate";
+  NSString *browseHotels = @"Browse Hotels";
+  NSString *bookARoom = @"Book A Room";
+  NSString *lookupReservation = @"Lookup Reservation";
+  
   
   //topView creation
-  CGRect top = CGRectMake(0, 0, frame.size.width, thirdHeight);
+  CGRect top = CGRectMake(0, 0, screenWidth, viewHeight);
   UIView *topView = [[UIView alloc] initWithFrame:top];
   self.topRect = top;
   [topView setTranslatesAutoresizingMaskIntoConstraints:false];
-  topView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                                 green:169.0f/255.0f
-                                                  blue:135.0f/255.0f
-                                                 alpha:1.0f];
+  topView.backgroundColor = customGreen;
   [rootView addSubview:topView];
   
   //Text on topView
-  UILabel *browseHotelLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth, thirdHeight/2, 200, 30)];
+  CGRect bHLabel = CGRectMake(quarterWidth, halfViewHeight, stdLabelWidth, labelHeight);
+  UILabel *browseHotelLabel = [[UILabel alloc] initWithFrame:bHLabel];
   [browseHotelLabel setTranslatesAutoresizingMaskIntoConstraints:false];
-  browseHotelLabel.text = @"Browse Hotels";
+  browseHotelLabel.text = browseHotels;
   browseHotelLabel.textColor = [UIColor blackColor];
-  browseHotelLabel.font = [UIFont fontWithName:fontName size:24];
+  browseHotelLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [topView addSubview:browseHotelLabel];
   
   //middleWhiteView creation
-  CGRect middle = CGRectMake(0, thirdHeight + 1, frame.size.width, thirdHeight);
+  CGRect middle = CGRectMake(0, viewHeight, screenWidth, viewHeight);
   UIView *midView = [[UIView alloc] initWithFrame:middle];
   self.middleRect = middle;
   [midView setTranslatesAutoresizingMaskIntoConstraints:false];
@@ -60,30 +77,29 @@
   [rootView addSubview:midView];
 
   //Text on middleWhiteView
-  UILabel *bookARoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth + 10, 75, 200, 30)];
+  CGRect barLabel = CGRectMake(adjustedX10, halfViewHeight, stdLabelWidth, labelHeight);
+  UILabel *bookARoomLabel = [[UILabel alloc] initWithFrame:barLabel];
   [bookARoomLabel setTranslatesAutoresizingMaskIntoConstraints:false];
-  bookARoomLabel.text = @"Book A Room";
+  bookARoomLabel.text = bookARoom;
   bookARoomLabel.textColor = [UIColor blackColor];
-  bookARoomLabel.font = [UIFont fontWithName:fontName size:24];
+  bookARoomLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [midView addSubview:bookARoomLabel];
   
   //bottomView creation
-  CGRect bottom = CGRectMake(0, twoThirdsHeight, frame.size.width, thirdHeight);
+  CGRect bottom = CGRectMake(0, twiceViewHeight, screenWidth, viewHeight);
   UIView *bottomView = [[UIView alloc] initWithFrame:bottom];
   self.bottomRect = bottom;
   [bottomView setTranslatesAutoresizingMaskIntoConstraints:false];
-  bottomView.backgroundColor = [UIColor colorWithRed:77.0f/255.0f
-                                            green:169.0f/255.0f
-                                             blue:135.0f/255.0f
-                                            alpha:1.0f];
+  bottomView.backgroundColor = customGreen;
   [rootView addSubview:bottomView];
   
   //Text on bottomView
-  UILabel *lookupReservationLabel = [[UILabel alloc] initWithFrame:CGRectMake(quarterWidth - 20, 75, 250, 30)];
+  CGRect lrLabel = CGRectMake(adjustedX20, halfViewHeight, longLabelWidth, labelHeight);
+  UILabel *lookupReservationLabel = [[UILabel alloc] initWithFrame:lrLabel];
   [lookupReservationLabel setTranslatesAutoresizingMaskIntoConstraints:false];
-  lookupReservationLabel.text = @"Lookup Reservation";
+  lookupReservationLabel.text = lookupReservation;
   lookupReservationLabel.textColor = [UIColor blackColor];
-  lookupReservationLabel.font = [UIFont fontWithName:fontName size:24];
+  lookupReservationLabel.font = [UIFont fontWithName:fontName size:fontSize];
   [bottomView addSubview:lookupReservationLabel];
   
   self.view = rootView;

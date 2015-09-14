@@ -10,4 +10,6 @@
 
 @interface ReservationResultsViewController : UIViewController
 
+@property (strong, nonatomic) NSArray *reservations;
+
 @end
