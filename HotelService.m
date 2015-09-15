@@ -57,8 +57,7 @@
   selectedRoom.reservation = [selectedRoom.reservation setByAddingObject:reservation];
   
   NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Guest"];
-  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"lastname like %@", guestLast];
-  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"firstname like %@", guestFirst];
+  fetchRequest.predicate = [NSPredicate predicateWithFormat:@"lastname like %@ AND firstname like %@", guestLast, guestFirst];
   NSError *fetchError;
   NSArray *results = [appDelegate.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
   if (results.count > 0) {

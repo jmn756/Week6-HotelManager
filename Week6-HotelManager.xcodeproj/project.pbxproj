@@ -10,6 +10,7 @@
 		B0105CE11BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0105CE01BA292F8008E1FE8 /* Yangtze-Gold-2-Front-Desk.jpg */; };
 		B0105CE71BA358AE008E1FE8 /* ConfirmReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0105CE61BA358AE008E1FE8 /* ConfirmReservationViewController.m */; };
 		B0105CEB1BA382CD008E1FE8 /* Google-Search.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B0105CEA1BA382CD008E1FE8 /* Google-Search.jpg */; };
+		B0105CED1BA87651008E1FE8 /* HotelServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0105CEC1BA87651008E1FE8 /* HotelServiceTests.m */; };
 		B074D7691B9E28F5006EFB37 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B074D7681B9E28F5006EFB37 /* main.m */; };
 		B074D76C1B9E28F5006EFB37 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B074D76B1B9E28F5006EFB37 /* AppDelegate.m */; };
 		B074D76F1B9E28F5006EFB37 /* Week6_HotelManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B074D76D1B9E28F5006EFB37 /* Week6_HotelManager.xcdatamodeld */; };
@@ -51,6 +52,7 @@
 		B0105CE51BA358AE008E1FE8 /* ConfirmReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmReservationViewController.h; sourceTree = "<group>"; };
 		B0105CE61BA358AE008E1FE8 /* ConfirmReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ConfirmReservationViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		B0105CEA1BA382CD008E1FE8 /* Google-Search.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Google-Search.jpg"; sourceTree = "<group>"; };
+		B0105CEC1BA87651008E1FE8 /* HotelServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelServiceTests.m; sourceTree = "<group>"; };
 		B074D7631B9E28F5006EFB37 /* Week6-HotelManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Week6-HotelManager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B074D7671B9E28F5006EFB37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B074D7681B9E28F5006EFB37 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		B074D7821B9E28F5006EFB37 /* Week6-HotelManagerTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0105CEC1BA87651008E1FE8 /* HotelServiceTests.m */,
 				B074D7851B9E28F5006EFB37 /* Week6_HotelManagerTests.m */,
 				B074D7831B9E28F5006EFB37 /* Supporting Files */,
 			);
@@ -362,6 +365,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0105CED1BA87651008E1FE8 /* HotelServiceTests.m in Sources */,
 				B074D7861B9E28F5006EFB37 /* Week6_HotelManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

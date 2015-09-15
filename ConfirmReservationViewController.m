@@ -43,7 +43,9 @@
   int longLabelValue = 350;
   int adjustedWidth = screenWidth-60;
   int adjustedX30 = 30;
+  int textFieldY = 100;
   int adjustedX10 = 10;
+  int adjustedX100 = 100;
   int adjustedX50 = quarterWidth + 50;
   int fontSize = 13;
   NSString *fontName = @"Copperplate";
@@ -62,7 +64,7 @@
   [rootView addSubview:firstNameTextField];
   
   //lastNameTextView creation
-  CGRect bottom = CGRectMake(adjustedX30, navBarHeight + 35, adjustedWidth, labelHeight);
+  CGRect bottom = CGRectMake(adjustedX30, textFieldY, adjustedWidth, labelHeight);
   UITextField *lastNameTextField = [[UITextField alloc] initWithFrame:bottom];
   self.lastTextField = lastNameTextField;
   self.lastTextField.delegate = self;
@@ -78,7 +80,7 @@
   [rootView addSubview:imageView];
   
   //Text on confirm reservation page
-  CGRect dLabel = CGRectMake(adjustedX10, startPic + 100, longLabelValue, longLabelValue);
+  CGRect dLabel = CGRectMake(adjustedX10, startPic + adjustedX100, longLabelValue, longLabelValue);
   UILabel *datesLabel = [[UILabel alloc] initWithFrame:dLabel];
   datesLabel.lineBreakMode = NSLineBreakByWordWrapping;
   datesLabel.numberOfLines = 0;
